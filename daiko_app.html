@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スタジオ代行管理 - Lucina北小金</title>
+    <title>スタジオ代行管理 - Lucina</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary:#2563eb; --primary-dark:#1d4ed8; --primary-light:#dbeafe; --primary-bg:#eff6ff;
+            --primary:#e11d63; --primary-dark:#be185d; --primary-light:#fce7f3; --primary-bg:#fdf2f8;
             --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb; --gray-300:#d1d5db;
             --gray-400:#9ca3af; --gray-500:#6b7280; --gray-600:#4b5563; --gray-700:#374151; --gray-800:#1f2937;
             --green:#059669; --green-bg:#d1fae5; --green-text:#065f46;
@@ -69,6 +69,11 @@
         .admin-button {padding:12px 16px; background:#fff; color:var(--primary); border:2px solid var(--primary); border-radius:var(--radius); cursor:pointer; font-weight:600; font-size:0.9rem; transition:all 0.15s; font-family:inherit; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; width:100%; flex-shrink:0;}
         .admin-button::before {font-size:1.2rem; content:'⚙️';}
         .admin-button:hover {background:var(--primary); color:#fff;}
+
+        /* ── Store Selection ── */
+        .store-button {padding:14px 16px; background:linear-gradient(135deg,#e11d63,#f472b6); color:#fff; border:none; border-radius:var(--radius); cursor:pointer; font-weight:600; font-size:0.95rem; transition:opacity 0.15s,transform 0.1s; font-family:inherit; text-align:center; width:100%;}
+        .store-button:hover {opacity:0.9; transform:translateY(-1px);}
+        .store-button:active {opacity:0.8; transform:translateY(0);}
 
         /* ── Dashboard ── */
         .dashboard-grid {display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px;}
@@ -279,9 +284,21 @@
     </style>
 </head>
 <body>
-    <div id="loginModal" class="login-modal active">
+    <!-- 店舗選択画面 -->
+    <div id="storeSelectModal" class="login-modal active">
+        <div class="login-card" style="max-width:420px; text-align:center;">
+            <div style="font-size:1.5rem; font-weight:700; color:#be185d; margin-bottom:4px;">Lucina</div>
+            <div class="login-subtitle">店舗を選択してください</div>
+            <div id="storeSelectGrid" style="display:flex; flex-direction:column; gap:8px;"></div>
+        </div>
+    </div>
+
+    <!-- ログイン画面 -->
+    <div id="loginModal" class="login-modal">
         <div class="login-card">
-            <div class="login-title">スタジオ代行管理</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; justify-content:center;">
+                <div class="login-title" id="loginStoreTitle">スタジオ代行管理</div>
+            </div>
             <div class="login-subtitle">ログイン方法を選択してください</div>
 
             <div class="login-role-selector">
@@ -290,24 +307,28 @@
             </div>
 
             <div id="loginPanelInstructor">
-                <div style="font-size:0.85rem; color:#6b7280; text-align:center; margin-bottom:12px;">名前をタップしてログイン</div>
+                <div style="font-size:0.82rem; color:#6b7280; text-align:center; margin-bottom:10px;">名前をタップしてログイン</div>
                 <div class="login-instructor-area">
                     <div class="instructor-grid" id="instructorLoginGrid"></div>
                 </div>
             </div>
 
             <div id="loginPanelAdmin" style="display:none;">
-                <div style="background:#eef2ff; border-radius:10px; padding:20px; text-align:center;">
-                    <div style="font-size:2.5rem; margin-bottom:12px;">⚙️</div>
-                    <div style="font-size:0.95rem; color:#374151; margin-bottom:6px; font-weight:600;">管理者としてログイン</div>
-                    <div style="font-size:0.8rem; color:#6b7280; margin-bottom:16px;">代行申請の承認・却下、マスタ管理が行えます</div>
-                    <div id="adminLoginError" style="display:none; background:#fee2e2; color:#7f1d1d; padding:8px 12px; border-radius:8px; font-size:0.8rem; margin-bottom:12px;">パスワードが正しくありません</div>
-                    <div style="margin-bottom:14px; text-align:left;">
-                        <label style="font-size:0.82rem; color:#374151; font-weight:500; display:block; margin-bottom:6px;">パスワード</label>
+                <div style="background:#fdf2f8; border-radius:10px; padding:20px; text-align:center;">
+                    <div style="font-size:2rem; margin-bottom:10px;">⚙️</div>
+                    <div style="font-size:0.9rem; color:#374151; margin-bottom:4px; font-weight:600;">管理者としてログイン</div>
+                    <div style="font-size:0.78rem; color:#6b7280; margin-bottom:14px;">代行申請の承認・却下、マスタ管理が行えます</div>
+                    <div id="adminLoginError" style="display:none; background:#fee2e2; color:#7f1d1d; padding:8px 12px; border-radius:8px; font-size:0.8rem; margin-bottom:10px;">パスワードが正しくありません</div>
+                    <div style="margin-bottom:12px; text-align:left;">
+                        <label style="font-size:0.82rem; color:#374151; font-weight:500; display:block; margin-bottom:4px;">パスワード</label>
                         <input type="password" id="adminPasswordInput" placeholder="パスワードを入力" style="width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-family:inherit; font-size:0.9rem;" onkeydown="if(event.key==='Enter') loginAsAdmin()">
                     </div>
                     <button class="admin-button" onclick="loginAsAdmin()" style="margin:0 auto;">管理者でログイン</button>
                 </div>
+            </div>
+
+            <div style="margin-top:12px; text-align:center;">
+                <button class="secondary" onclick="backToStoreSelect()" style="font-size:0.78rem; padding:8px 16px; width:auto;">← 店舗選択に戻る</button>
             </div>
         </div>
     </div>
@@ -485,8 +506,8 @@
         <div class="header">
             <div class="header-content">
                 <div>
-                    <h1>スタジオ代行管理</h1>
-                    <p>Lucina北小金 代行講師管理システム</p>
+                    <h1 id="headerTitle">スタジオ代行管理</h1>
+                    <p id="headerSubtitle">Lucina 代行講師管理システム</p>
                 </div>
             </div>
             <div class="header-user-section">
@@ -790,26 +811,51 @@
         let isAdmin = false;
         let currentCalendarDate = new Date();
         let pendingSubstituteEditId = null;
+        let currentStore = null;
 
-        const KEYS = {INSTRUCTORS:'daiko_instructors',PROGRAMS:'daiko_programs',SUBSTITUTES:'daiko_substitutes',MANAGER_EMAIL:'daiko_manager_email',ADMIN_PASS:'daiko_admin_password'};
+        const STORES = ['北小金','北浦和','東久留米','那覇新都心','熱海','清澄白河','三ノ輪'];
+
+        function getKeys() {
+            const prefix = currentStore ? 'daiko_' + currentStore + '_' : 'daiko_';
+            return {
+                INSTRUCTORS: prefix + 'instructors',
+                PROGRAMS: prefix + 'programs',
+                SUBSTITUTES: prefix + 'substitutes',
+                MANAGER_EMAIL: prefix + 'manager_email',
+                ADMIN_PASS: prefix + 'admin_password'
+            };
+        }
+        // Keep KEYS as a getter for backward compatibility
+        let KEYS = getKeys();
 
         const DEFAULT_INSTRUCTORS = ['Eri','YOKO','hitomi','ituco','えみ','オン','ピョンソンファ','与沢 愛子','夏海はるか','宮城 ゆみこ','峯岸 明美','市川 ミカ','木村 絵美子','佐々木 美貴','竹内 恵','竹内 里美','蓮見 恵莉','西上 歩','鈴木 真由','長野 道子','高鳥 マノ'];
         const DEFAULT_PROGRAMS = ['ヨガ シンプル','ヨガ ハタ','ヨガ リラックス','ヨガ ボディメンテナンス','ヨガ ヒーリングフロー','ヨガ デトックスフロー','ヨガ ダイエット','ヨガ Beauty Yoga','ヨガ パワー','ヨガ デトックス','ヨガ 姿勢改善','ヨガ コア','ヨガ ヴィンヤサフロー','ヨガ ハードダイエット','ピラティス シンプル','ピラティス Rhythm Flow','ピラティス 美Body','ピラティス ボディケア','ビューティーメソッド 美彩心','ビューティーメソッド 流美身','マシンピラティス Intro','マシンピラティス Basic','マシンピラティス Basic～waist～','マシンピラティス Basic～hip～','マシンピラティス Intermediate（中級）','マシンピラティス Back&Core（中級）','マシンピラティス Lower Body（中級）','マシンピラティス Waist Shape（中級）','マシンピラティス Jump Board（中級）','パーソナルピラティス'];
 
         function loadOrCreateData() {
+            KEYS = getKeys();
             const existingInstructors = JSON.parse(localStorage.getItem(KEYS.INSTRUCTORS)||'[]');
             if (!existingInstructors || existingInstructors.length === 0) {
-                localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify(DEFAULT_INSTRUCTORS));
+                // Only 北小金 gets default instructor data
+                if (currentStore === '北小金') {
+                    localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify(DEFAULT_INSTRUCTORS));
+                } else {
+                    localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify([]));
+                }
             }
             const existingPrograms = JSON.parse(localStorage.getItem(KEYS.PROGRAMS)||'[]');
             if (!existingPrograms || existingPrograms.length === 0) {
-                localStorage.setItem(KEYS.PROGRAMS,JSON.stringify(DEFAULT_PROGRAMS));
+                // Only 北小金 gets default program data
+                if (currentStore === '北小金') {
+                    localStorage.setItem(KEYS.PROGRAMS,JSON.stringify(DEFAULT_PROGRAMS));
+                } else {
+                    localStorage.setItem(KEYS.PROGRAMS,JSON.stringify([]));
+                }
             }
             if (!localStorage.getItem(KEYS.SUBSTITUTES)) {
                 localStorage.setItem(KEYS.SUBSTITUTES,JSON.stringify([]));
             }
             if (!localStorage.getItem(KEYS.MANAGER_EMAIL)) {
-                localStorage.setItem(KEYS.MANAGER_EMAIL,'manager@lucina-kitakoganei.com');
+                localStorage.setItem(KEYS.MANAGER_EMAIL,'');
             }
             if (!localStorage.getItem(KEYS.ADMIN_PASS)) {
                 localStorage.setItem(KEYS.ADMIN_PASS,'admin');
@@ -877,6 +923,48 @@
             document.getElementById('adminPasswordInput').value = '';
             document.getElementById('adminLoginError').style.display = 'none';
             setupTabVisibility();
+        }
+
+        function populateStoreGrid() {
+            const grid = document.getElementById('storeSelectGrid');
+            grid.innerHTML = '';
+            STORES.forEach(store => {
+                const btn = document.createElement('button');
+                btn.className = 'store-button';
+                btn.textContent = 'Lucina ' + store;
+                btn.onclick = () => selectStore(store);
+                grid.appendChild(btn);
+            });
+        }
+
+        function selectStore(storeName) {
+            currentStore = storeName;
+            KEYS = getKeys();
+            document.getElementById('storeSelectModal').classList.remove('active');
+            document.getElementById('loginStoreTitle').textContent = 'Lucina ' + storeName;
+            document.getElementById('headerTitle').textContent = 'Lucina ' + storeName;
+            document.getElementById('headerSubtitle').textContent = 'Lucina ' + storeName + ' 代行講師管理システム';
+            document.title = 'スタジオ代行管理 - Lucina ' + storeName;
+            loadOrCreateData();
+            populateLoginGrid();
+            generateTimeSlots();
+            populateSelectOptions();
+            renderInstructorList();
+            renderProgramList();
+            const managerEmail = getManagerEmail();
+            document.getElementById('managerEmail').value = managerEmail;
+            document.getElementById('loginModal').classList.add('active');
+            showLoginPanel('instructor');
+        }
+
+        function backToStoreSelect() {
+            currentUser = null;
+            isAdmin = false;
+            currentStore = null;
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('storeSelectModal').classList.add('active');
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminLoginError').style.display = 'none';
         }
 
         function updateUIForLogin() {
@@ -1051,14 +1139,22 @@
         }
 
         function resetMasterData() {
-            showConfirm('インストラクターとプログラムを初期データにリセットしますか？（既存の代行申請データは保持されます）', () => {
-                localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify(DEFAULT_INSTRUCTORS));
-                localStorage.setItem(KEYS.PROGRAMS,JSON.stringify(DEFAULT_PROGRAMS));
+            const msg = currentStore === '北小金'
+                ? 'インストラクターとプログラムを初期データにリセットしますか？（既存の代行申請データは保持されます）'
+                : 'インストラクターとプログラムを空にリセットしますか？（既存の代行申請データは保持されます）';
+            showConfirm(msg, () => {
+                if (currentStore === '北小金') {
+                    localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify(DEFAULT_INSTRUCTORS));
+                    localStorage.setItem(KEYS.PROGRAMS,JSON.stringify(DEFAULT_PROGRAMS));
+                } else {
+                    localStorage.setItem(KEYS.INSTRUCTORS,JSON.stringify([]));
+                    localStorage.setItem(KEYS.PROGRAMS,JSON.stringify([]));
+                }
                 renderInstructorList();
                 renderProgramList();
                 populateSelectOptions();
                 populateLoginGrid();
-                showAlert('masterAlert','初期データにリセットしました','success');
+                showAlert('masterAlert','リセットしました','success');
             });
         }
 
@@ -1885,15 +1981,10 @@ body { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sa
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            loadOrCreateData();
-            populateLoginGrid();
-            generateTimeSlots();
-            populateSelectOptions();
+            populateStoreGrid();
             setupEventListeners();
-            renderInstructorList();
-            renderProgramList();
-            const managerEmail = getManagerEmail();
-            document.getElementById('managerEmail').value = managerEmail;
+            // Store selection modal is shown first (active by default)
+            // Data loading happens after store is selected via selectStore()
         });
     </script>
 </body>
