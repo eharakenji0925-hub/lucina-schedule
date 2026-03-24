@@ -513,6 +513,23 @@
         </div>
     </div>
 
+    <div id="emailNotifyModal" class="modal">
+        <div class="modal-content" style="max-width:420px;">
+            <div class="modal-header" style="background:linear-gradient(135deg,#e11d63,#f472b6); color:#fff;" id="emailNotifyTitle">登録完了</div>
+            <div style="padding:20px;">
+                <div style="text-align:center; font-size:2rem; margin-bottom:8px;">✅</div>
+                <div id="emailNotifySummary" style="background:#f9fafb; padding:12px; border-radius:8px; font-size:0.85rem; color:#374151; margin-bottom:16px; text-align:center;"></div>
+                <div style="font-size:0.85rem; color:#6b7280; text-align:center; margin-bottom:14px;">管理者への通知方法を選んでください</div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button id="emailNotifyMailBtn" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;">📧 メールで通知する</button>
+                    <button id="emailNotifyLineBtn" class="secondary" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; background:#06C755; color:#fff; border-color:#06C755;">💬 LINEで送る</button>
+                    <button id="emailNotifyCopyBtn" class="secondary" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px;">📋 テキストをコピーして送る</button>
+                    <button id="emailNotifySkipBtn" class="secondary" style="width:100%; padding:12px; color:#6b7280;">通知せずに閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="adminPendingPopup" class="modal">
         <div class="modal-content" style="max-width:520px; border-top:6px solid #D97706;">
             <div style="text-align:center; padding:8px 0 20px;">
@@ -1794,49 +1811,56 @@
 
         function sendManagerNotification(sub, phase) {
             const managerEmail = getManagerEmail();
-            if (!managerEmail) return;
 
             const dateParts = sub.date.split('-');
             const dateFormatted = dateParts[0] + '年' + parseInt(dateParts[1]) + '月' + parseInt(dateParts[2]) + '日';
             const dayOfWeek = ['日','月','火','水','木','金','土'][new Date(sub.date).getDay()];
 
-            let subject, body;
+            let subject, body, phaseLabel;
 
             if (phase === 'phase1') {
+                phaseLabel = '代行申請を登録しました';
                 subject = `【代行申請】${dateFormatted} ${sub.timeSlot} ${sub.program} - ${sub.originalInstructor}`;
-                body = `代行申請がありました。
-
-■ 申請者: ${sub.originalInstructor}
-■ 日時: ${dateFormatted}（${dayOfWeek}）${sub.timeSlot}
-■ クラス: ${sub.program}
-■ 理由: ${sub.reason}
-■ 代行者: 未定
-
-━━━━━━━━━━━━━━━━━━━━
-スタジオ代行管理アプリでご確認ください。
-代行者が決まり次第、承認依頼の通知が届きます。`;
+                body = `代行申請がありました。\n\n■ 申請者: ${sub.originalInstructor}\n■ 日時: ${dateFormatted}（${dayOfWeek}）${sub.timeSlot}\n■ クラス: ${sub.program}\n■ 理由: ${sub.reason}\n■ 代行者: 未定\n\n━━━━━━━━━━━━━━━━━━━━\nスタジオ代行管理アプリでご確認ください。\n代行者が決まり次第、承認依頼の通知が届きます。`;
             } else if (phase === 'phase2') {
+                phaseLabel = '代行者を登録しました';
                 subject = `【承認依頼】${dateFormatted} ${sub.timeSlot} ${sub.program} - ${sub.substituteInstructor}が代行`;
-                body = `代行者が決まりました。承認をお願いいたします。
-
-■ 申請者: ${sub.originalInstructor}
-■ 日時: ${dateFormatted}（${dayOfWeek}）${sub.timeSlot}
-■ 元クラス: ${sub.program}
-■ 代行者: ${sub.substituteInstructor}
-■ 代行クラス: ${sub.substituteProgram || sub.program}
-
-━━━━━━━━━━━━━━━━━━━━
-【承認の手順】
-1. スタジオ代行管理アプリを開いてください
-2.「管理者」としてログインしてください
-3. ダッシュボードに「承認待ち」として表示されます
-4.「✅ 承認」ボタンを押して承認してください
-
-※承認後、自動的にお客様告知画面が表示されます。`;
+                body = `代行者が決まりました。承認をお願いいたします。\n\n■ 申請者: ${sub.originalInstructor}\n■ 日時: ${dateFormatted}（${dayOfWeek}）${sub.timeSlot}\n■ 元クラス: ${sub.program}\n■ 代行者: ${sub.substituteInstructor}\n■ 代行クラス: ${sub.substituteProgram || sub.program}\n\n━━━━━━━━━━━━━━━━━━━━\n【承認の手順】\n1. スタジオ代行管理アプリを開いてください\n2.「管理者」としてログインしてください\n3. ダッシュボードに「承認待ち」として表示されます\n4.「✅ 承認」ボタンを押して承認してください\n\n※承認後、自動的にお客様告知画面が表示されます。`;
             }
 
-            const mailtoLink = `mailto:${managerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
+            // Show notification options modal
+            const modal = document.getElementById('emailNotifyModal');
+            document.getElementById('emailNotifyTitle').textContent = phaseLabel;
+            document.getElementById('emailNotifySummary').innerHTML = `
+                <div style="margin-bottom:6px;"><strong>${dateFormatted}（${dayOfWeek}）${sub.timeSlot}</strong></div>
+                <div>${sub.program} / ${sub.originalInstructor}</div>
+                ${sub.substituteInstructor ? '<div>代行: <strong>' + sub.substituteInstructor + '</strong></div>' : ''}
+            `;
+
+            const mailtoLink = managerEmail ? `mailto:${managerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}` : '';
+            const lineBody = body.replace(/\n/g, '\n');
+            const lineLink = `https://line.me/R/share?text=${encodeURIComponent(subject + '\n\n' + body)}`;
+
+            document.getElementById('emailNotifyMailBtn').onclick = function() {
+                if (mailtoLink) { window.location.href = mailtoLink; }
+                else { alert('管理者メールアドレスが設定されていません。'); }
+            };
+            document.getElementById('emailNotifyCopyBtn').onclick = function() {
+                const text = subject + '\n\n' + body;
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('テキストをコピーしました。LINEやメッセージアプリに貼り付けてください。');
+                }).catch(() => {
+                    prompt('以下をコピーしてください:', text);
+                });
+            };
+            document.getElementById('emailNotifyLineBtn').onclick = function() {
+                window.open(lineLink, '_blank');
+            };
+            document.getElementById('emailNotifySkipBtn').onclick = function() {
+                modal.classList.remove('active');
+            };
+
+            modal.classList.add('active');
         }
 
         function printNotice(id) {
