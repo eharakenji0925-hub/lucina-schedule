@@ -974,7 +974,7 @@ function nv(d){
   updLbl();updSt();updMonthCount();svLS();
 }
 function goNow(){D.ws=fD(gMon(new Date()));const n=new Date();D.mo=n.getMonth();D.yr=n.getFullYear();if(D.vw==='w')renderWk();else renderMo();updLbl();updSt();updMonthCount();svLS();}
-function updLbl(){if(D.vw==='w'){const s=pD(D.ws),e=new Date(s);e.setDate(e.getDate()+6);document.getElementById('wl').textContent=`${s.getMonth()+1}/${s.getDate()} - ${e.getMonth()+1}/${e.getDate()} (${s.getFullYear()})`;}else{document.getElementById('wl').textContent=`${D.yr}年 ${D.mo+1}月`;}}
+function updLbl(){if(D.vw==='w'){const s=pD(D.ws);document.getElementById('wl').textContent=`${s.getMonth()+1}/${s.getDate()} - ${e.getMonth()+1}/${e.getDate()} (${s.getFullYear()})`;}else{document.getElementById('wl').textContent=`${D.yr}年 ${D.mo+1}月`;}}
 
 function getSlots(){const s=D.se;let[sh,sm]=(s.open||'09:30').split(':').map(Number),[eh,em]=(s.close||'22:00').split(':').map(Number);const iv=parseInt(s.intv)||15;const sl=[];let t=sh*60+sm;const en=eh*60+em;while(t<=en){sl.push(P(Math.floor(t/60))+':'+P(t%60));t+=iv;}return sl;}
 
@@ -1870,7 +1870,7 @@ function renderAll(){
   // 印刷用タイトル・フッター更新
   const nm=D.se?D.se.name:'Lucina';
   const s=pD(D.ws),e=new Date(s);e.setDate(e.getDate()+6);
-  const pt=document.getElementById('print-title');if(pt)pt.textContent=`ホットコラーゲンスタジオプログラム　${nm}　　${s.getFullYear()}年${s.getMonth()+1}月${s.getDate()}日 ～ ${e.getMonth()+1}月${e.getDate()}日`;
+  const pt=document.getElementById('print-title');if(pt)pt.textContent=`ホットコラーゲンスタジオプログラム　${nm}　　${s.getFullYear()}年${s.getMonth()+1}月`;
   const pf=document.getElementById('print-footer');
   if(pf){
     const se2=D.se||{};
