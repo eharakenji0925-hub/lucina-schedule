@@ -1339,7 +1339,11 @@
 
                     let actionButtons = '';
                     if (sub.status === '代行募集中') {
-                        actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
+                        if (isAdmin) {
+                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span>`;
+                        } else {
+                            actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
+                        }
                     } else if (sub.status === '承認待ち') {
                         if (isAdmin) {
                             actionButtons = `<button class="success" onclick="approveSubstitute(${sub.id})">✅ 承認</button><button class="danger" onclick="rejectSubstitute(${sub.id})">❌ 却下</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button>`;
@@ -1546,7 +1550,11 @@
 
                     let actionButtons = '';
                     if (sub.status === '代行募集中') {
-                        actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
+                        if (isAdmin) {
+                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span>`;
+                        } else {
+                            actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
+                        }
                     } else if (sub.status === '承認待ち') {
                         if (isAdmin) {
                             actionButtons = `<button class="success" onclick="approveSubstitute(${sub.id})">✅ 承認</button><button class="danger" onclick="rejectSubstitute(${sub.id})">❌ 却下</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button>`;
@@ -1832,19 +1840,19 @@ body { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sa
 .page { width:210mm; height:297mm; display:flex; flex-direction:column; }
 .half { width:210mm; height:148.5mm; display:flex; align-items:center; justify-content:center; position:relative; }
 .half:first-child { border-bottom: 1px dashed #ccc; }
-.notice-card { width:180mm; text-align:center; }
-.notice-header { font-size:28pt; font-weight:700; margin-bottom:14mm; letter-spacing:0.15em; color:#be185d; border-bottom:3px double #f472b6; padding-bottom:8mm; }
-.notice-body { margin-bottom:12mm; }
-.notice-date { font-size:18pt; font-weight:600; margin-bottom:12mm; background:#fdf2f8; color:#9d174d; padding:5mm 0; border-radius:3mm; border:1px solid #fbcfe8; }
-.notice-table { width:100%; border-collapse:collapse; margin-bottom:10mm; font-size:14pt; }
-.notice-table th { background:#ec4899; color:#fff; padding:4mm 3mm; font-weight:600; text-align:center; font-size:13pt; }
-.notice-table td { padding:5mm 3mm; border-bottom:1px solid #fce7f3; text-align:center; }
-.notice-label { font-weight:600; background:#fdf2f8; width:22%; font-size:13pt; color:#9d174d; }
-.notice-before { width:39%; font-size:16pt; }
-.notice-after { width:39%; font-size:16pt; font-weight:700; color:#be185d; }
-.notice-same { font-size:16pt; font-weight:600; }
-.notice-message { font-size:13pt; color:#6b7280; margin-top:8mm; }
-.notice-footer { font-size:11pt; color:#f9a8d4; margin-top:5mm; font-weight:600; }
+.notice-card { width:170mm; text-align:center; }
+.notice-header { font-size:22pt; font-weight:700; margin-bottom:8mm; letter-spacing:0.15em; color:#be185d; border-bottom:3px double #f472b6; padding-bottom:5mm; }
+.notice-body { margin-bottom:6mm; }
+.notice-date { font-size:15pt; font-weight:600; margin-bottom:8mm; background:#fdf2f8; color:#9d174d; padding:4mm 0; border-radius:3mm; border:1px solid #fbcfe8; }
+.notice-table { width:100%; border-collapse:collapse; margin-bottom:6mm; font-size:12pt; }
+.notice-table th { background:#ec4899; color:#fff; padding:3mm 2mm; font-weight:600; text-align:center; font-size:11pt; }
+.notice-table td { padding:3.5mm 2mm; border-bottom:1px solid #fce7f3; text-align:center; }
+.notice-label { font-weight:600; background:#fdf2f8; width:22%; font-size:11pt; color:#9d174d; }
+.notice-before { width:39%; font-size:13pt; }
+.notice-after { width:39%; font-size:13pt; font-weight:700; color:#be185d; }
+.notice-same { font-size:13pt; font-weight:600; }
+.notice-message { font-size:11pt; color:#6b7280; margin-top:5mm; }
+.notice-footer { font-size:10pt; color:#f9a8d4; margin-top:3mm; font-weight:600; }
 @media print {
     body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     .half:first-child { border-bottom:1px dashed #ccc; }
