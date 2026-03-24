@@ -53,7 +53,7 @@
         /* ── Login Modal ── */
         .login-modal {display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:2000; align-items:center; justify-content:center;}
         .login-modal.active {display:flex;}
-        .login-card {background:#fff; padding:24px 20px; border-radius:var(--radius-lg); box-shadow:0 16px 48px rgba(0,0,0,0.25); max-width:480px; width:92%; max-height:88vh; display:flex; flex-direction:column;}
+        .login-card {background:#fff; padding:24px 20px; border-radius:var(--radius-lg); box-shadow:0 16px 48px rgba(0,0,0,0.25); max-width:480px; width:92%; max-height:88vh; display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch;}
         .login-title {font-size:1.3rem; font-weight:700; text-align:center; margin-bottom:6px; color:var(--gray-800); flex-shrink:0;}
         .login-subtitle {font-size:0.8rem; text-align:center; color:var(--gray-500); margin-bottom:14px; flex-shrink:0;}
         .login-role-selector {display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; flex-shrink:0;}
@@ -261,10 +261,11 @@
             .instructor-grid {grid-template-columns:repeat(3,1fr); gap:6px;}
             .instructor-button {padding:10px 4px; font-size:0.72rem;}
             .instructor-button::before {font-size:1rem;}
-            .login-card {padding:18px 14px; max-height:92vh;}
-            .login-title {font-size:1.15rem; margin-bottom:4px;}
-            .login-role-selector {gap:6px; margin-bottom:10px;}
-            .login-role-btn {padding:9px 10px; font-size:0.8rem;}
+            .login-card {padding:16px 12px; max-height:92vh;}
+            .login-title {font-size:1.1rem; margin-bottom:2px;}
+            .login-subtitle {font-size:0.75rem; margin-bottom:10px;}
+            .login-role-selector {gap:6px; margin-bottom:8px;}
+            .login-role-btn {padding:8px 8px; font-size:0.78rem;}
             .modal-content {padding:18px; width:95%; max-height:90vh;}
             .button-group {flex-direction:column-reverse;}
             button {width:100%;}
@@ -302,16 +303,16 @@
             </div>
             <div class="login-subtitle">ログイン方法を選択してください</div>
 
-            <div style="background:#fdf2f8; border-radius:10px; padding:12px 14px; margin-bottom:14px; font-size:0.75rem; color:#9d174d; line-height:1.7; text-align:left;">
-                <div style="font-weight:700; font-size:0.8rem; margin-bottom:4px; text-align:center;">このアプリの流れ</div>
-                <div style="text-align:center; font-size:0.72rem; color:#6b7280;">
-                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">①代行申請</span>
-                    <span style="color:#e11d63; font-weight:700;"> → </span>
-                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">②代行者を登録</span>
-                    <span style="color:#e11d63; font-weight:700;"> → </span>
-                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">③管理者承認</span>
-                    <span style="color:#e11d63; font-weight:700;"> → </span>
-                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">④お客様告知</span>
+            <div style="background:#fdf2f8; border-radius:10px; padding:10px 14px; margin-bottom:14px;">
+                <div style="font-weight:700; font-size:0.78rem; margin-bottom:6px; text-align:center; color:#9d174d;">このアプリの流れ</div>
+                <div style="display:flex; align-items:center; justify-content:center; gap:4px; font-size:0.68rem;">
+                    <span style="background:#fff; padding:3px 6px; border-radius:5px; border:1px solid #fbcfe8; color:#374151; white-space:nowrap;">①申請</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#fff; padding:3px 6px; border-radius:5px; border:1px solid #fbcfe8; color:#374151; white-space:nowrap;">②代行者登録</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#fff; padding:3px 6px; border-radius:5px; border:1px solid #fbcfe8; color:#374151; white-space:nowrap;">③承認</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#fff; padding:3px 6px; border-radius:5px; border:1px solid #fbcfe8; color:#374151; white-space:nowrap;">④告知</span>
                 </div>
             </div>
 
