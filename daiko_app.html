@@ -1340,7 +1340,7 @@
                     let actionButtons = '';
                     if (sub.status === '代行募集中') {
                         if (isAdmin) {
-                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span>`;
+                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span><button class="secondary" onclick="editSubstitute(${sub.id})" style="margin-left:6px;">編集</button><button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none; margin-left:6px;">代行者を登録</button>`;
                         } else {
                             actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
                         }
@@ -1551,7 +1551,7 @@
                     let actionButtons = '';
                     if (sub.status === '代行募集中') {
                         if (isAdmin) {
-                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span>`;
+                            actionButtons = `<span style="padding:8px 12px; background:#e5e7eb; color:#374151; border-radius:6px; font-size:0.85rem; font-weight:600;">依頼者が代行者を探し中</span><button class="secondary" onclick="editSubstitute(${sub.id})" style="margin-left:6px;">編集</button><button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none; margin-left:6px;">代行者を登録</button>`;
                         } else {
                             actionButtons = `<button onclick="openRegisterSubstituteModal(${sub.id})" style="background:#059669; border:none;">代行者を登録</button><button class="secondary" onclick="editSubstitute(${sub.id})">編集</button><button class="danger" onclick="deleteSubstitute(${sub.id})">削除</button>`;
                         }
