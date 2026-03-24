@@ -288,6 +288,7 @@
     <div id="storeSelectModal" class="login-modal active">
         <div class="login-card" style="max-width:420px; text-align:center;">
             <div style="font-size:1.5rem; font-weight:700; color:#be185d; margin-bottom:4px;">Lucina</div>
+            <div style="font-size:0.85rem; color:#6b7280; margin-bottom:6px;">代行講師管理システム</div>
             <div class="login-subtitle">店舗を選択してください</div>
             <div id="storeSelectGrid" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
@@ -300,6 +301,19 @@
                 <div class="login-title" id="loginStoreTitle">スタジオ代行管理</div>
             </div>
             <div class="login-subtitle">ログイン方法を選択してください</div>
+
+            <div style="background:#fdf2f8; border-radius:10px; padding:12px 14px; margin-bottom:14px; font-size:0.75rem; color:#9d174d; line-height:1.7; text-align:left;">
+                <div style="font-weight:700; font-size:0.8rem; margin-bottom:4px; text-align:center;">このアプリの流れ</div>
+                <div style="text-align:center; font-size:0.72rem; color:#6b7280;">
+                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">①代行申請</span>
+                    <span style="color:#e11d63; font-weight:700;"> → </span>
+                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">②代行者を登録</span>
+                    <span style="color:#e11d63; font-weight:700;"> → </span>
+                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">③管理者承認</span>
+                    <span style="color:#e11d63; font-weight:700;"> → </span>
+                    <span style="background:#fff; padding:3px 8px; border-radius:6px; border:1px solid #fbcfe8;">④お客様告知</span>
+                </div>
+            </div>
 
             <div class="login-role-selector">
                 <button class="login-role-btn active" onclick="showLoginPanel('instructor')" id="loginRoleBtnInstructor">👨‍🏫 インストラクター</button>
@@ -411,12 +425,28 @@
     <div id="helpModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">使い方ガイド</div>
+
+            <div style="background:#fdf2f8; border-radius:10px; padding:14px; margin-bottom:16px; text-align:center;">
+                <div style="font-weight:700; color:#be185d; font-size:0.9rem; margin-bottom:8px;">代行申請の流れ</div>
+                <div style="display:flex; align-items:center; justify-content:center; gap:4px; flex-wrap:wrap; font-size:0.75rem;">
+                    <span style="background:#e11d63; color:#fff; padding:4px 10px; border-radius:20px; font-weight:600;">①申請</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#059669; color:#fff; padding:4px 10px; border-radius:20px; font-weight:600;">②代行者登録</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#d97706; color:#fff; padding:4px 10px; border-radius:20px; font-weight:600;">③管理者承認</span>
+                    <span style="color:#e11d63; font-weight:700;">→</span>
+                    <span style="background:#0891b2; color:#fff; padding:4px 10px; border-radius:20px; font-weight:600;">④お客様告知</span>
+                </div>
+            </div>
+
+            <div style="font-weight:700; color:#be185d; font-size:0.9rem; margin-bottom:10px; border-bottom:2px solid #fce7f3; padding-bottom:6px;">インストラクターの方へ</div>
+
             <div class="guide-step">
                 <div style="display:flex; align-items:flex-start; gap:12px;">
                     <div class="guide-step-number">1</div>
                     <div>
-                        <h4>マスタ管理でインストラクターとプログラムを登録（管理者のみ）</h4>
-                        <p>システムを使用するために、まずインストラクターとプログラムをマスタ管理タブで登録します。また、管理者メールアドレスを設定します。これは管理者のみが操作できます。</p>
+                        <h4>店舗を選んで、自分の名前をタップ</h4>
+                        <p>アプリを開いたら、まず自分のスタジオを選び、「インストラクター」タブから自分の名前をタップしてログインします。</p>
                     </div>
                 </div>
             </div>
@@ -424,8 +454,8 @@
                 <div style="display:flex; align-items:flex-start; gap:12px;">
                     <div class="guide-step-number">2</div>
                     <div>
-                        <h4>ログイン画面で自分の名前を選択</h4>
-                        <p>ユーザーはアプリを開いた時にログイン画面から自分の名前を選択します。管理者ユーザーは「管理者」ボタンをクリックします。</p>
+                        <h4>「代行申請」タブから申請を出す</h4>
+                        <p>代行が必要になったら、日付・時間・プログラムを選んで申請します。<strong>代行者がまだ見つかっていなくてもOK！</strong>まずは申請を出しましょう。申請すると管理者に自動でメール通知されます。</p>
                     </div>
                 </div>
             </div>
@@ -433,8 +463,8 @@
                 <div style="display:flex; align-items:flex-start; gap:12px;">
                     <div class="guide-step-number">3</div>
                     <div>
-                        <h4>インストラクター：代行申請タブで申請を登録</h4>
-                        <p>代行講師が必要な場合、「代行申請」タブから必要な情報を入力して申請を登録します。代行講師フィールドは後から追加できるため、省略可能です。代行登録フォームを送信すると、自動的に管理者にメール通知が送られます。</p>
+                        <h4>代行者が見つかったら「代行者を登録」</h4>
+                        <p>自分で代行してくれる方を見つけたら、「一覧」タブの該当カードにある<strong>「代行者を登録」ボタン</strong>をタップして、代行講師名を登録します。管理者に承認依頼が送られます。</p>
                     </div>
                 </div>
             </div>
@@ -442,36 +472,40 @@
                 <div style="display:flex; align-items:flex-start; gap:12px;">
                     <div class="guide-step-number">4</div>
                     <div>
-                        <h4>インストラクター：代行者が見つかったら登録</h4>
-                        <p>代行者を見つけたら、代行申請一覧から「代行者を登録」ボタンをクリックして、代行講師と代行プログラムを入力します。送信すると、管理者に承認依頼のメール通知が送られます。</p>
+                        <h4>あとは管理者の承認を待つだけ</h4>
+                        <p>管理者が承認すると、ステータスが「承認済」に変わります。その後、管理者がお客様向けの告知（館内掲示・SNS）を行います。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-weight:700; color:#be185d; font-size:0.9rem; margin:16px 0 10px; border-bottom:2px solid #fce7f3; padding-bottom:6px;">管理者の方へ</div>
+
+            <div class="guide-step">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <div class="guide-step-number">A</div>
+                    <div>
+                        <h4>「承認待ち」の申請を確認して承認・却下</h4>
+                        <p>ログイン時に承認待ちがあればポップアップで通知されます。一覧画面で「✅ 承認」または「❌ 却下」を行ってください。急ぎの場合は、管理者が代行者の登録や内容の編集もできます。</p>
                     </div>
                 </div>
             </div>
             <div class="guide-step">
                 <div style="display:flex; align-items:flex-start; gap:12px;">
-                    <div class="guide-step-number">5</div>
+                    <div class="guide-step-number">B</div>
                     <div>
-                        <h4>管理者：ダッシュボードで承認管理</h4>
-                        <p>管理者はダッシュボードで「承認待ち」項目を確認し、「✅ 承認」または「❌ 却下」を実行します。承認時には自動的に告知モーダルが表示され、印刷やSNS通知を行います。</p>
+                        <h4>承認後、お客様への告知を行う</h4>
+                        <p>承認済の申請には「📢 告知する」ボタンが表示されます。「館内告知を印刷」（A4用紙にA5×2枚）または「SNS用テキストをコピー」で告知を行い、「告知済みにする」を押して完了です。</p>
                     </div>
                 </div>
             </div>
-            <div class="guide-step">
-                <div style="display:flex; align-items:flex-start; gap:12px;">
-                    <div class="guide-step-number">6</div>
-                    <div>
-                        <h4>ステータスの4段階フロー</h4>
-                        <p>すべての代行申請は以下の段階を進みます：①申請 → ②代行者決定 → ③承認 → ④告知</p>
-                    </div>
-                </div>
-            </div>
+
             <div class="status-descriptions">
                 <strong style="display:block; margin-bottom:16px; color:#1f2937;">ステータスについて</strong>
-                <div class="status-desc-item"><span class="status-badge-small" style="background:#e5e7eb; color:#374151;">代行募集中</span><span>インストラクターが代行者を探している状態</span></div>
-                <div class="status-desc-item"><span class="status-badge-small" style="background:#fef3c7; color:#92400e;">承認待ち</span><span>代行者が見つかり、管理者の承認を待っている状態</span></div>
-                <div class="status-desc-item"><span class="status-badge-small" style="background:#d1fae5; color:#065f46;">承認済</span><span>管理者が承認し、顧客に告知する準備ができた状態</span></div>
-                <div class="status-desc-item"><span class="status-badge-small" style="background:#cffafe; color:#155e75;">告知済</span><span>顧客に告知（印刷またはSNS）が完了した状態</span></div>
-                <div class="status-desc-item"><span class="status-badge-small" style="background:#fee2e2; color:#7f1d1d;">却下</span><span>管理者が申請を却下した状態</span></div>
+                <div class="status-desc-item"><span class="status-badge-small" style="background:#e5e7eb; color:#374151;">代行募集中</span><span>代行者を探している状態（まだ見つかっていない）</span></div>
+                <div class="status-desc-item"><span class="status-badge-small" style="background:#fef3c7; color:#92400e;">承認待ち</span><span>代行者が決まり、管理者の承認を待っている</span></div>
+                <div class="status-desc-item"><span class="status-badge-small" style="background:#d1fae5; color:#065f46;">承認済</span><span>管理者が承認した（お客様告知の準備OK）</span></div>
+                <div class="status-desc-item"><span class="status-badge-small" style="background:#cffafe; color:#155e75;">告知済</span><span>お客様への告知が完了した</span></div>
+                <div class="status-desc-item"><span class="status-badge-small" style="background:#fee2e2; color:#7f1d1d;">却下</span><span>管理者が申請を却下した</span></div>
             </div>
             <div class="modal-footer">
                 <button class="secondary" onclick="closeHelpModal()">閉じる</button>
@@ -531,7 +565,7 @@
 
         <div class="tabs-content">
             <div id="dashboard" class="tab-content active">
-                <div class="tab-description">代行申請の進捗状況の概要を確認できます。管理者は「承認待ち」の項目に注力が必要です。</div>
+                <div class="tab-description" id="dashboardDescription">代行申請の進捗状況の概要を確認できます。管理者は「承認待ち」の項目に注力が必要です。</div>
                 <div class="alert" id="dashboardAlert"></div>
                 <div class="dashboard-grid">
                     <div class="stat-card total">
@@ -594,7 +628,7 @@
             </div>
 
             <div id="calendar" class="tab-content">
-                <div class="tab-description">月別カレンダーで代行スケジュールを視覚的に確認できます。日付をクリックすると詳細が表示されます。</div>
+                <div class="tab-description" id="calendarDescription">月別カレンダーで代行スケジュールを視覚的に確認できます。日付をクリックすると詳細が表示されます。</div>
                 <div class="calendar-header">
                     <h3><span id="currentMonth"></span></h3>
                     <div class="calendar-nav">
@@ -975,12 +1009,12 @@
                 userDisplay.textContent = '管理者';
                 userRoleDisplay.textContent = '(管理者ユーザー)';
                 userAvatar.textContent = '⚙';
-                userAvatar.style.background = '#2563eb';
+                userAvatar.style.background = '#e11d63';
             } else {
                 userDisplay.textContent = currentUser;
                 userRoleDisplay.textContent = '(インストラクター)';
                 userAvatar.textContent = currentUser.charAt(0);
-                userAvatar.style.background = '#2563eb';
+                userAvatar.style.background = '#e11d63';
             }
             setupTabVisibility();
             populateSelectOptions();
@@ -988,10 +1022,25 @@
             renderSubstituteList();
             renderCalendar();
             updateDashboard();
+            updateDescriptionsForRole();
             if (!isAdmin && currentUser) {
                 switchTab('register');
             } else if (isAdmin) {
                 switchTab('dashboard');
+            }
+        }
+
+        function updateDescriptionsForRole() {
+            if (isAdmin) {
+                document.getElementById('dashboardDescription').innerHTML = '全インストラクターの代行申請状況を一覧で確認できます。<strong>「承認待ち」の申請を優先的に確認</strong>してください。';
+                document.getElementById('calendarDescription').textContent = '月別カレンダーで全店舗の代行スケジュールを確認できます。日付をクリックすると詳細が表示されます。';
+                document.getElementById('listTabDescription').textContent = '全インストラクターの代行申請を確認・管理できます。承認・却下の操作が行えます。';
+                document.getElementById('registerDescription').innerHTML = '管理者として代行申請を代理登録できます。通常はインストラクターが自分で申請します。';
+            } else {
+                document.getElementById('dashboardDescription').textContent = 'あなたの代行申請の進捗状況を確認できます。';
+                document.getElementById('calendarDescription').textContent = 'あなたの代行スケジュールをカレンダーで確認できます。日付をタップすると詳細が表示されます。';
+                document.getElementById('listTabDescription').innerHTML = 'あなたの代行申請の一覧です。<strong>「代行募集中」の申請には、代行者が見つかったら「代行者を登録」ボタン</strong>から登録してください。';
+                document.getElementById('registerDescription').innerHTML = '代行が必要な場合にここから申請します。<strong>代行講師が未定でもまず申請できます。</strong>代行者が見つかったら、一覧画面から後で登録できます。';
             }
         }
 
