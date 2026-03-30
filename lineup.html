@@ -261,7 +261,13 @@ footer small{font-size:10px;font-weight:300;letter-spacing:3px;color:#888}
 .btt:hover svg{stroke:#fff}
 
 /* ===== EDIT MODE ===== */
-.edit-fab{position:fixed;bottom:32px;left:32px;z-index:200;width:48px;height:48px;border-radius:50%;background:#8a7868;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(138,120,104,.4);transition:all .3s}
+.edit-fab,.edit-toolbar,.img-modal{display:none!important}
+body.edit-allowed .edit-fab{display:flex!important}
+body.edit-allowed .edit-toolbar{display:none}
+body.edit-allowed.edit-mode .edit-toolbar{display:flex!important}
+body.edit-allowed .img-modal{display:none!important}
+body.edit-allowed .img-modal.open{display:flex!important}
+.edit-fab{position:fixed;bottom:32px;left:32px;z-index:200;width:48px;height:48px;border-radius:50%;background:#8a7868;border:none;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(138,120,104,.4);transition:all .3s}
 .edit-fab:hover{background:#7a6858;transform:scale(1.08)}
 .edit-fab svg{width:20px;height:20px;fill:#fff}
 body.edit-mode .edit-fab{background:#c44}
@@ -1632,7 +1638,7 @@ var MACHINE_DATA = {
   <div class="sns-icons">
     <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
     <a href="https://www.instagram.com/axiscorepilates/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-    <a href="https://line.me/" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+    <a href="https://line.me/R/ti/p/@520galkz" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
     <a href="mailto:info@ace-axiscore.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
   </div>
 </section>
@@ -1875,6 +1881,10 @@ function loadData(){
 loadData();
 
 /* ===== EDIT MODE ===== */
+// ?edit がURLにある場合、またはローカルファイルで開いた場合に編集機能を有効化
+if(window.location.search.indexOf('edit')!==-1 || window.location.protocol==='file:'){
+  document.body.classList.add('edit-allowed');
+}
 var editMode=false;
 var editTarget=null; // {brand,catIdx,prodIdx,slotIdx}
 
@@ -1890,7 +1900,7 @@ function toggleEditMode(){
   editMode=!editMode;
   document.body.classList.toggle('edit-mode',editMode);
   if(editMode){
-    editToast('編集モード ON — 各画像の下のボタンで変更できます');
+    editToast('編集モード ON — 各画像の下のボタンで変更できます。変更後は「保存（ダウンロード）」→ ダウンロードされたファイルで元のlineup.htmlを上書きしてください');
   } else {
     editToast('編集モード OFF');
   }
@@ -2004,15 +2014,92 @@ function closeImgModal(){
   editTarget=null;
 }
 
-function saveEditedData(){
+// GitHub API設定
+var GH_OWNER='eharakenji0925-hub';
+var GH_REPO='kanri';
+var GH_PATH='lineup.html';
+var GH_BRANCH='main';
+
+function getGHToken(){
+  return sessionStorage.getItem('gh_pat')||'';
+}
+function setGHToken(token){
+  sessionStorage.setItem('gh_pat',token);
+}
+
+function buildUpdatedHTML(){
   var scriptEl=document.getElementById('machine-data');
-  if(!scriptEl){editToast('エラー: scriptタグが見つかりません');return;}
-  // Update the script content with new MACHINE_DATA
+  if(!scriptEl) return null;
   var newData='if(typeof MACHINE_DATA===\'undefined\'){\nvar MACHINE_DATA = '+JSON.stringify(MACHINE_DATA,null,2)+';\n}';
   scriptEl.textContent='/* inline fallback — remove this block if machine-data.js is always present */\n'+newData;
-  // Build full HTML
   var lang=document.documentElement.getAttribute('lang');
-  var html='<!DOCTYPE html>\n<html'+(lang?' lang="'+lang+'"':'')+'>\n'+document.head.outerHTML+'\n'+document.body.outerHTML+'\n</html>';
+  return '<!DOCTYPE html>\n<html'+(lang?' lang="'+lang+'"':'')+'>\n'+document.head.outerHTML+'\n'+document.body.outerHTML+'\n</html>';
+}
+
+function saveEditedData(){
+  var token=getGHToken();
+  if(!token){
+    openGHTokenModal(function(){saveToGitHub();});
+    return;
+  }
+  saveToGitHub();
+}
+
+function saveToGitHub(){
+  var token=getGHToken();
+  if(!token){editToast('GitHubトークンが設定されていません');return;}
+  var html=buildUpdatedHTML();
+  if(!html){editToast('エラー: scriptタグが見つかりません');return;}
+
+  var saveBtn=document.querySelector('.edit-btn-save');
+  if(saveBtn){saveBtn.textContent='保存中...';saveBtn.disabled=true;}
+
+  // Step 1: Get current file SHA
+  fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH+'?ref='+GH_BRANCH,{
+    headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json'}
+  })
+  .then(function(res){
+    if(!res.ok) throw new Error('ファイル取得エラー ('+res.status+')');
+    return res.json();
+  })
+  .then(function(data){
+    var sha=data.sha;
+    // Step 2: Update file
+    var content=btoa(unescape(encodeURIComponent(html)));
+    return fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH,{
+      method:'PUT',
+      headers:{
+        'Authorization':'token '+token,
+        'Accept':'application/vnd.github.v3+json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        message:'Update lineup images',
+        content:content,
+        sha:sha,
+        branch:GH_BRANCH
+      })
+    });
+  })
+  .then(function(res){
+    if(!res.ok) throw new Error('保存エラー ('+res.status+')');
+    return res.json();
+  })
+  .then(function(){
+    editToast('GitHubに保存しました！数分後にサイトに反映されます');
+  })
+  .catch(function(err){
+    editToast('エラー: '+err.message+'　— トークンを確認してください');
+    console.error('GitHub save error:',err);
+  })
+  .finally(function(){
+    if(saveBtn){saveBtn.textContent='保存（GitHub）';saveBtn.disabled=false;}
+  });
+}
+
+function saveAsDownload(){
+  var html=buildUpdatedHTML();
+  if(!html){editToast('エラー: scriptタグが見つかりません');return;}
   var blob=new Blob([html],{type:'text/html;charset=utf-8'});
   var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -2021,13 +2108,35 @@ function saveEditedData(){
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
-  editToast('lineup.html をダウンロードしました — 既存ファイルと置き換えてください');
+  editToast('ダウンロードしました');
+}
+
+function openGHTokenModal(callback){
+  var modal=document.getElementById('ghTokenModal');
+  var input=document.getElementById('ghTokenInput');
+  input.value=getGHToken();
+  modal.classList.add('open');
+  modal._callback=callback||null;
+}
+function closeGHTokenModal(){
+  document.getElementById('ghTokenModal').classList.remove('open');
+}
+function saveGHToken(){
+  var input=document.getElementById('ghTokenInput');
+  var token=input.value.trim();
+  if(!token){editToast('トークンを入力してください');return;}
+  setGHToken(token);
+  var cb=document.getElementById('ghTokenModal')._callback;
+  closeGHTokenModal();
+  editToast('トークンを保存しました');
+  if(cb) cb();
 }
 
 function editToast(msg){
   var t=document.getElementById('editToast');
   t.textContent=msg;t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show')},3000);
+  var duration=msg.length>30?6000:3000;
+  setTimeout(function(){t.classList.remove('show')},duration);
 }
 </script>
 
@@ -2037,8 +2146,10 @@ function editToast(msg){
 </button>
 <div class="edit-toolbar">
 <span class="edit-toolbar-label">編集モード</span>
+<button class="edit-btn" onclick="openGHTokenModal(null)" title="GitHubトークン設定">⚙</button>
 <button class="edit-btn" onclick="toggleEditMode()">終了</button>
-<button class="edit-btn edit-btn-save" onclick="saveEditedData()">保存（ダウンロード）</button>
+<button class="edit-btn" onclick="saveAsDownload()">ダウンロード</button>
+<button class="edit-btn edit-btn-save" onclick="saveEditedData()">保存（GitHub）</button>
 </div>
 <div class="edit-toast" id="editToast"></div>
 
@@ -2059,6 +2170,30 @@ function editToast(msg){
 <div class="img-modal-grid" id="imgModalGrid"></div>
 <div class="img-modal-upload" style="margin-top:16px">
 <button class="img-modal-upload-btn" onclick="uploadLocalImage()">ファイルから選択...</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- GitHub Token Modal -->
+<div class="img-modal" id="ghTokenModal" onclick="if(event.target===this)closeGHTokenModal()">
+<div class="img-modal-box" style="max-width:480px">
+<div class="img-modal-header">
+<span class="img-modal-title">GitHub設定</span>
+<button class="img-modal-close" onclick="closeGHTokenModal()">&times;</button>
+</div>
+<div style="padding:24px 20px">
+<p style="font-size:13px;color:#666;margin:0 0 16px;line-height:1.7">
+編集内容をGitHubに直接保存するには、Personal Access Token（PAT）が必要です。<br>
+<a href="https://github.com/settings/tokens/new?scopes=repo&description=lineup-editor" target="_blank" rel="noopener" style="color:#8a7868">こちらからトークンを作成</a>（repoスコープが必要）
+</p>
+<input id="ghTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;padding:12px;border:1px solid #d0ccc8;border-radius:6px;font-size:14px;font-family:monospace;box-sizing:border-box">
+<p style="font-size:11px;color:#999;margin:8px 0 0;line-height:1.5">
+※ トークンはこのブラウザセッション中のみ保持されます（タブを閉じると消えます）
+</p>
+<div style="display:flex;gap:8px;margin-top:20px;justify-content:flex-end">
+<button class="edit-btn" onclick="closeGHTokenModal()">キャンセル</button>
+<button class="edit-btn edit-btn-save" onclick="saveGHToken()">設定</button>
 </div>
 </div>
 </div>
